@@ -5,8 +5,14 @@ Enemy e;
 
 using namespace std;
 
-void Manipulation::collision()
+int Manipulation::collision()
 {
+	if (enemyY[0] + 4 >= 23) {
+		if (enemyX[0] + 4 - e.playerPos >= 0 && enemyX[0] + 4 - e.playerPos < 8) {
+			return 1;
+		}
+	}
+	return 0;
 
 }
 
@@ -15,6 +21,11 @@ void Manipulation::play()
 	enemyFlag[0] = 1;
 	enemyFlag[1] = 1;
 	enemyY[0] = enemyY[1] = 4;
+
+	for (int i = 0; i < 20; i++) {
+		bullets[i][0] = bullets[i][1] = 0;
+	}
+
 
 	system("cls");
 	e.drawBorder();
@@ -58,10 +69,22 @@ void Manipulation::play()
 	drawEnemy(0);
 	drawEnemy(1);
 	drawBullet();
+	if (collision() == 1) {
+		gameOver();
+
+		return;
+	}
+	if (hitBullet() == 1) {
+		score++;
+		updateScore();
+	}
+
 	Sleep(200);
 	e.erasePlayer();
 	eraseEnemy(0);
 	eraseEnemy(1);
+	eraseBullets();
+	moveBullet();
 	if (enemyFlag[0] == 1)
 		enemyY[0] += 1;
 
@@ -86,11 +109,19 @@ void Manipulation::play()
 
 void Manipulation::gameOver()
 {
+	system("cls");
+	cout << endl;
+	cout << "\t\t--------------------------" << endl;
+	cout << "\t\t-------- Game Over -------" << endl;
+	cout << "\t\t--------------------------" << endl << endl;
+	cout << "\t\tPress any key to go back to menu.";
+	_getch();
 
 }
 
 void Manipulation::updateScore()
 {
+	e.getPosi(WIN_WIDTH + 7, 5); cout << "Score: " << score << endl;
 
 }
 

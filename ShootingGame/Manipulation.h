@@ -6,7 +6,8 @@
 class Manipulation:public Enemy
 {
 public:
-	void collision();
+	int score = 0;
+	int collision();
 	void play();
 	void gameOver();
 	void updateScore();
