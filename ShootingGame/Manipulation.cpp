@@ -1,6 +1,7 @@
 #include "Manipulation.h"
-Draw e;
-Player p;
+//Draw e;
+//Player p;
+Enemy e;
 
 using namespace std;
 
@@ -11,6 +12,10 @@ void Manipulation::collision()
 
 void Manipulation::play()
 {
+	enemyFlag[0] = 1;
+	enemyFlag[1] = 1;
+	enemyY[0] = enemyY[1] = 4;
+
 	system("cls");
 	e.drawBorder();
 	e.getPosi(WIN_WIDTH + 5, 2); cout << "Space Shooter";
@@ -32,25 +37,46 @@ void Manipulation::play()
 			char ch = _getch();
 			if (ch == 'a' || ch == 'A') 
 			{
-				if (p.playerPos > 2)
-					p.playerPos -= 2;
+				if (e.playerPos > 2)
+					e.playerPos -= 2;
 			}
 			if (ch == 'd' || ch == 'D') 
 			{
-				if (p.playerPos < WIN_WIDTH - 7)
-					p.playerPos += 2;
+				if (e.playerPos < WIN_WIDTH - 7)
+					e.playerPos += 2;
 			}
 			if (ch == 32) 
 			{
-				cout << "hey im bullet";
-				//genBullet();
+				genBullet();
 			}
 			if (ch == 27) 
 			{
 				break;
 			}
 		}
-	p.drawPlayer();
+	e.drawPlayer();
+	drawEnemy(0);
+	drawEnemy(1);
+	drawBullet();
+	Sleep(200);
+	e.erasePlayer();
+	eraseEnemy(0);
+	eraseEnemy(1);
+	if (enemyFlag[0] == 1)
+		enemyY[0] += 1;
+
+	if (enemyFlag[1] == 1)
+		enemyY[1] += 1;
+
+	if (enemyY[0] > SCREEN_HEIGHT - 5) 
+	{
+		resetEnemy(0);
+	}
+	if (enemyY[1] > SCREEN_HEIGHT - 5) 
+	{
+		resetEnemy(1);
+	}
+
 	}
 	
 
@@ -76,4 +102,32 @@ void Manipulation::instructions()
 	cout << "\n Press spacebar to make player activate";
 	cout << "\n\nPress any key to go back to menu";
 	_getch();
+}
+
+int Manipulation::hitBullet()
+{
+
+	for (int i = 0; i < 20; i++) {
+		for (int j = 0; j < 4; j += 2) {
+			if (bullets[i][j] != 0) {
+				if (bullets[i][j] >= enemyY[0] && bullets[i][j] <= enemyY[0] + 4) {
+					if (bullets[i][j + 1] >= enemyX[0] && bullets[i][j + 1] <= enemyX[0] + 4) {
+						eraseBullet(i);
+						bullets[i][j] = 0;
+						resetEnemy(0);
+						return 1;
+					}
+				}
+				if (bullets[i][j] >= enemyY[1] && bullets[i][j] <= enemyY[1] + 4) {
+					if (bullets[i][j + 1] >= enemyX[1] && bullets[i][j + 1] <= enemyX[1] + 4) {
+						eraseBullet(i);
+						resetEnemy(1);
+						bullets[i][j] = 0;
+						return 1;
+					}
+				}
+			}
+		}
+	}
+	return 0;
 }

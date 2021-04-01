@@ -1,8 +1,9 @@
 #pragma once
-#include"Draw.h"
-#include"Player.h"
+//#include"Draw.h"
+//#include"Player.h"
+#include"Enemy.h"
 
-class Manipulation
+class Manipulation:public Enemy
 {
 public:
 	void collision();
@@ -10,5 +11,6 @@ public:
 	void gameOver();
 	void updateScore();
 	void instructions();
+	int hitBullet();
 };
 
