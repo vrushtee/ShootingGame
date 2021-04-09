@@ -7,7 +7,7 @@ using namespace std;
 
 int Manipulation::collision()
 {
-	if (enemyY[0] + 4 >= 23) {
+	if (enemyY[0] + 4 >= 43) {
 		if (enemyX[0] + 4 - e.playerPos >= 0 && enemyX[0] + 4 - e.playerPos < 8) {
 			return 1;
 		}
@@ -20,7 +20,12 @@ void Manipulation::play()
 {
 	enemyFlag[0] = 1;
 	enemyFlag[1] = 1;
-	enemyY[0] = enemyY[1] = 4;
+	enemyFlag[2] = 1;
+	enemyY[0] = enemyY[1] = enemyY[2] = 4;
+	genEnemy(0);
+	genEnemy(1);
+	genEnemy(2);
+
 
 	for (int i = 0; i < 20; i++) {
 		bullets[i][0] = bullets[i][1] = 0;
@@ -68,6 +73,7 @@ void Manipulation::play()
 	e.drawPlayer();
 	drawEnemy(0);
 	drawEnemy(1);
+	drawEnemy(2);
 	drawBullet();
 	if (collision() == 1) {
 		gameOver();
@@ -77,12 +83,15 @@ void Manipulation::play()
 	if (hitBullet() == 1) {
 		score++;
 		updateScore();
+		if (score == 20)
+			lvl2();
 	}
 
-	Sleep(200);
+	Sleep(100);
 	e.erasePlayer();
 	eraseEnemy(0);
 	eraseEnemy(1);
+	eraseEnemy(2);
 	eraseBullets();
 	moveBullet();
 	if (enemyFlag[0] == 1)
@@ -90,6 +99,9 @@ void Manipulation::play()
 
 	if (enemyFlag[1] == 1)
 		enemyY[1] += 1;
+
+	if (enemyFlag[2] == 1)
+		enemyY[2] += 1;
 
 	if (enemyY[0] > SCREEN_HEIGHT - 5) 
 	{
@@ -99,7 +111,10 @@ void Manipulation::play()
 	{
 		resetEnemy(1);
 	}
-
+	if (enemyY[2] > SCREEN_HEIGHT - 5)
+	{
+		resetEnemy(2);
+	}
 	}
 	
 
@@ -161,4 +176,22 @@ int Manipulation::hitBullet()
 		}
 	}
 	return 0;
+}
+
+void Manipulation::lvl2()
+{
+	system("cls");
+	e.getPosi(10, 5); cout << " -------------------------------- ";
+	e.getPosi(10, 6); cout << " |      Welcome to level 2      | ";
+	e.getPosi(10, 7); cout << " -------------------------------- ";
+	//e.getPosi(10, 10); cout << " press any key to continue ";
+
+	system("PAUSE");
+	system("cls");
+	score = 0;
+	Sleep(50);
+	play();
+	
+	
+
 }

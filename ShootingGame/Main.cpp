@@ -1,6 +1,6 @@
 #include<iostream>
 #include<conio.h>
-#include "Draw.h"
+//#include "Draw.h"
 #include"Manipulation.h"
 
 

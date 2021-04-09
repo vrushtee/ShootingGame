@@ -30,9 +30,9 @@ void Bullet::eraseBullet(int a)
 
 void Bullet::genBullet()
 {
-	bullets[bCounter][0] = 22;
+	bullets[bCounter][0] = 43;
 	bullets[bCounter][1] = playerPos;
-	bullets[bCounter][2] = 22;
+	bullets[bCounter][2] = 43;
 	bullets[bCounter][3] = playerPos + 4;
 	bCounter++;
 	if (bCounter == 20)

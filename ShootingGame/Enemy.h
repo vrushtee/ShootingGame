@@ -4,9 +4,9 @@
 class Enemy: public Bullet
 {
 public:
-	int enemyY[3];
-	int enemyX[3];
-	int enemyFlag[3];
+	int enemyY[4];
+	int enemyX[4];
+	int enemyFlag[4];
 
 	void genEnemy(int index);
 	void drawEnemy(int index);

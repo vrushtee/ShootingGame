@@ -24,11 +24,11 @@ void Draw::drawBorder()
 		getPosi(i, SCREEN_HEIGHT); cout << "±";
 	}
 
-	for (int i = 0; i < SCREEN_HEIGHT; i++) {
-		getPosi(0, i); cout << "9";
-		getPosi(SCREEN_WIDTH, i); cout << "9";
+	for (int i = 0; i <=SCREEN_HEIGHT; i++) {
+		getPosi(0, i); cout << "±";
+		getPosi(SCREEN_WIDTH, i); cout << "±";
 	}
 	for (int i = 0; i < SCREEN_HEIGHT; i++) {
-		getPosi(WIN_WIDTH, i); cout << "9";
+		getPosi(WIN_WIDTH, i); cout << "±";
 	}
 }

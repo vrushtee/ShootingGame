@@ -13,5 +13,6 @@ public:
 	void updateScore();
 	void instructions();
 	int hitBullet();
+	void lvl2();
 };
 

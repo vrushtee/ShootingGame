@@ -6,7 +6,7 @@ public:
 	char player[3][5] = { ' ',' ','8',' ',' ',
 						'|','8','8','8','|',
 						'#','#','#','#','#' };
-	int playerPos = WIN_WIDTH / 2;
+	static int playerPos;
 
 	void drawPlayer();
 	void erasePlayer();
